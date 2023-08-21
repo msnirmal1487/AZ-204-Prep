@@ -1,7 +1,10 @@
 package com.msnirmal.azurespringworkshop;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 
-
+@Entity
 public class Todo {
 
     public Todo() {
@@ -13,6 +16,8 @@ public class Todo {
         this.done = done;
     }
 
+    @Id
+    @GeneratedValue
     private Long id;
 
     private String description;

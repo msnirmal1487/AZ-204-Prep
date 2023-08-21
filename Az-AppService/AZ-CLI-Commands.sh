@@ -1,9 +1,9 @@
 az account show
 AZ_RESOURCE_GROUP=azure-spring-workshop
-AZ_DATABASE_NAME=msnirmal-mysql-db
+AZ_DB_SERVER_NAME=msnirmal-mysql-server
 AZ_LOCATION=eastus
 AZ_MYSQL_USERNAME=spring
-AZ_MYSQL_PASSWORD='Eh6v8IoqE8V&'
+AZ_MYSQL_PASSWORD='6WAI24T4460G80X2$'
 #The IP address of the local computer from which you'll run your Spring Boot application. To find the IP address, point your browser to whatismyip.akamai.com
 AZ_LOCAL_IP_ADDRESS=170.37.238.16
 
@@ -16,7 +16,7 @@ az group create  --name $AZ_RESOURCE_GROUP --location $AZ_LOCATION |jq
 # Create MySql Server (AZ Database for MySQL )
 az mysql server create \
     --resource-group $AZ_RESOURCE_GROUP \
-    --name $AZ_DATABASE_NAME \
+    --name $AZ_DB_SERVER_NAME \
     --location $AZ_LOCATION \
     --sku-name B_Gen5_1 \
     --storage-size 5120 \
@@ -28,8 +28,8 @@ az mysql server create \
 #Open server's firewall to local IP
 az mysql server firewall-rule create \
     --resource-group $AZ_RESOURCE_GROUP \
-    --name $AZ_DATABASE_NAME-database-allow-local-ip \
-    --server-name $AZ_DATABASE_NAME \
+    --name $AZ_DB_SERVER_NAME-database-allow-local-ip \
+    --server-name $AZ_DB_SERVER_NAME \
     --start-ip-address $AZ_LOCAL_IP_ADDRESS \
     --end-ip-address $AZ_LOCAL_IP_ADDRESS \
     | jq
@@ -37,8 +37,8 @@ az mysql server firewall-rule create \
 # allow firewall access from AZure resources
 az mysql server firewall-rule create \
     --resource-group $AZ_RESOURCE_GROUP \
-    --name $AZ_DATABASE_NAME-all-azure-IPs \
-    --server-name $AZ_DATABASE_NAME \
+    --name $AZ_DB_SERVER_NAME-all-azure-IPs \
+    --server-name $AZ_DB_SERVER_NAME \
     --start-ip-address 0.0.0.0 \
     --end-ip-address 0.0.0.0  \
     | jq
@@ -47,7 +47,7 @@ az mysql server firewall-rule create \
 az mysql db create \
     --resource-group $AZ_RESOURCE_GROUP \
     --name demo \
-    --server-name $AZ_DATABASE_NAME \
+    --server-name $AZ_DB_SERVER_NAME \
     | jq
 
 #Generate the Spring aplication <<Generate from web>>
