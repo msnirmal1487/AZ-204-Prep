@@ -53,27 +53,24 @@ az mysql db create \
 #Generate the Spring aplication <<Generate from web>>
 # curl https://start.spring.io/starter.tgz -d type=maven-project -d dependencies=web,data-jpa,mysql -d baseDir=azure-spring-workshop -d bootVersion=3.1.2 -d javaVersion=1.8
 
-# Add a todo to the Spring application
+# Add a todo to the Spring application (locally)
 curl --header "Content-Type: application/json" \
     --request POST \
     --data '{"description":"configuration","details":"congratulations, you have set up your Spring Boot application correctly!","done": "true"}' \
     http://127.0.0.1:8080
 
-# Get the todos
+# Get the todos (locally)
 curl --header "Content-Type: application/json" \
     --request GET \
     http://127.0.0.1:8080
 
-# Add a todo to the Spring application
+# Add a todo to the Spring application (AZ)
 curl --header "Content-Type: application/json" \
     --request POST \
-    --data '{"description":"configuration","details":"congratulations, you have set up your Spring Boot application correctly!","done": "true"}' \
+    --data '{"description":"configuration","details":"congratulations, you have set up your Spring Boot application in AZURE correctly!","done": "true"}' \
     https://msnirmal.azurewebsites.net/
 
-# Get the todos
+# Get the todos  (AZ)
 curl --header "Content-Type: application/json" \
     --request GET \
     https://msnirmal.azurewebsites.net/
-
-mvn com.microsoft.azure:azure-webapp-maven-plugin:2.12.0:config
-mvn package com.microsoft.azure:azure-webapp-maven-plugin:2.12.0:deploy
