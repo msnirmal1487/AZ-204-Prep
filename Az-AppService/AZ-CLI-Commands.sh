@@ -68,9 +68,25 @@ curl --header "Content-Type: application/json" \
 curl --header "Content-Type: application/json" \
     --request POST \
     --data '{"description":"configuration","details":"congratulations, you have set up your Spring Boot application in AZURE correctly!","done": "true"}' \
-    https://msnirmal.azurewebsites.net/
+    https://msnirmal1487.azurewebsites.net/
 
 # Get the todos  (AZ)
-curl --header "Content-Type: application/json" \
-    --request GET \
-    https://msnirmal.azurewebsites.net/
+´
+
+pwd
+cd Az-AppService/azure-spring-workshop
+
+az account show
+AZ_RESOURCE_GROUP=azure-spring-workshop
+appName=azure-spring-workshop$RANDOM
+appName=azure-spring-workshop28049
+echo $AZ_RESOURCE_GROUP
+echo $appName
+
+az webapp list-runtimes --os Linux
+az webapp up -g $AZ_RESOURCE_GROUP -n $appName --os-type Linux --runtime "JAVA:17-java17"
+
+#to pass VM arguments like profile active, add it to application settings in configuration section
+# -Dspring.profiles.active=azure-local ## for adding this VM argument. 
+# setting name : spring.profiles.active
+# value : azure-local

@@ -24,11 +24,11 @@ public class TodoController {
 	@PostMapping("/")
     @ResponseStatus(HttpStatus.CREATED)
     public Todo createTodo(@RequestBody Todo todo) {
-//		System.out.println("env - "+ env);
+		System.out.println("env - "+ env);
 		long len = todos.size();
 		todo.setId(len);
 		todos.add(todo);
-		if (env.equalsIgnoreCase("local")) {
+		if (isUseLocal()) {
 			return todo ; 
 		} else {
 			return todoRepository.save(todo);
@@ -37,12 +37,19 @@ public class TodoController {
 
     @GetMapping("/")
     public Iterable<Todo> getTodos() {
-//    	System.out.println("env - "+ env);
+    	System.out.println("env - "+ env);
     	
-    	if (env.equalsIgnoreCase("local")) {
+    	if (isUseLocal()) {
     		return todos; 
 		} else {
 			return todoRepository.findAll();
 		}
+    }
+    
+    private boolean isUseLocal() {
+    	if (env == null || (env != null && (env.equalsIgnoreCase("local") || env.equalsIgnoreCase("azure-local")))) {
+    		return true;
+    	}
+    	return false;
     }
 }
